@@ -19,6 +19,8 @@ conditions = input_file.read().split(" ")
 n = int(conditions[0])
 k = int(conditions[1])
 
+memo = {}
+
 
 def calc_rabbit_pairs_linear_recurrence(month_n, multiplier):
     """
@@ -39,7 +41,25 @@ def calc_rabbit_pairs_linear_recurrence(month_n, multiplier):
     elif month_n == 1:
         return 1
     else:
-        return calc_rabbit_pairs_linear_recurrence(month_n - 1, multiplier) + multiplier * calc_rabbit_pairs_linear_recurrence(month_n - 2, multiplier)
+        return calc_rabbit_pairs_linear_recurrence(month_n - 1, multiplier) \
+            + multiplier * calc_rabbit_pairs_linear_recurrence(month_n - 2, multiplier)
+
+
+def calc_rabbit_pairs_linear_recurrence_dynamic(month_n, multiplier=1):
+    args = (month_n, multiplier)
+    if args in memo:
+        return memo[args]  # Use previously computed value for conditions
+
+    # Compute value for new conditions
+    if month_n == 1:
+        ans = 1
+    elif month_n == 2:
+        ans = 1
+    else:
+        ans = calc_rabbit_pairs_linear_recurrence_dynamic(month_n-1, multiplier) \
+            + multiplier * calc_rabbit_pairs_linear_recurrence_dynamic(month_n-2, multiplier)
+    memo[args] = ans  # Store the computed value for new conditions
+    return ans
 
 
 def calc_rabbit_pairs_closed_form(month_n, multiplier):
@@ -96,7 +116,7 @@ def calc_quad_root(a, b, plus):
 
 time_start = time.time()
 
-rabbit_pair_count = calc_rabbit_pairs_loop(n, k)
+rabbit_pair_count = calc_rabbit_pairs_linear_recurrence_dynamic(n, k)
 
 time_end = time.time()
 time_elapsed = time_end - time_start

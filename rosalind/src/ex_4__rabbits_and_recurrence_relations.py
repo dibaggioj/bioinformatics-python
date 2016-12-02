@@ -23,7 +23,7 @@ k = int(conditions[1])
 def calc_rabbit_pairs_linear_recurrence(month_n, multiplier):
     """
     Calculate number of rabbit pairs after month `month_n` with `multiplier` pairs produced per litter, using the linear
-    -recurrence expression (slower)
+    -recurrence expression (slow)
 
     :type month_n: int
     :param month_n: nth month_n after which point we want to know the number of rabbit pairs
@@ -62,6 +62,29 @@ def calc_rabbit_pairs_closed_form(month_n, multiplier):
     return answer.to_integral_value()
 
 
+def calc_rabbit_pairs_loop(month_n, multiplier):
+    """
+    Calculate number of rabbit pairs after month `month_n` with `multiplier` pairs produced per litter, using an
+    loop/enumeration (fastest)
+
+    :type month_n: int
+    :param month_n: nth month_n after which point we want to know the number of rabbit pairs
+
+    :type multiplier: int
+    :param multiplier: number of rabbit pairs produced per litter
+
+    :rtype: int
+    :return: number of rabbit pairs after
+    """
+    previous1, previous2 = 1, 1
+    current = 0
+    for i in range(2, month_n):
+        current = previous1 + multiplier * previous2
+        previous2 = previous1
+        previous1 = current
+    return current
+
+
 def calc_quad_root(a, b, plus):
     quad_a = 1
     quad_b = - a
@@ -73,7 +96,7 @@ def calc_quad_root(a, b, plus):
 
 time_start = time.time()
 
-rabbit_pair_count = calc_rabbit_pairs_closed_form(n, k)
+rabbit_pair_count = calc_rabbit_pairs_loop(n, k)
 
 time_end = time.time()
 time_elapsed = time_end - time_start

@@ -46,6 +46,20 @@ def calc_rabbit_pairs_linear_recurrence(month_n, multiplier):
 
 
 def calc_rabbit_pairs_linear_recurrence_dynamic(month_n, multiplier=1):
+    """
+    Calculate number of rabbit pairs after month `month_n` with `multiplier` pairs produced per litter, using dynamic
+    programming (faster) - memorization, by storing answers computed for conditions and then reusing those answers for
+    the same conditions rather than recomputed them
+
+    :type month_n: int
+    :param month_n: nth month_n after which point we want to know the number of rabbit pairs
+
+    :type multiplier: int
+    :param multiplier: number of rabbit pairs produced per litter
+
+    :rtype: int
+    :return: number of rabbit pairs after
+    """
     args = (month_n, multiplier)
     if args in memo:
         return memo[args]  # Use previously computed value for conditions

@@ -20,14 +20,14 @@ c_count = 0
 g_count = 0
 t_count = 0
 
-for basepair in dna:
-    if basepair == 'A':
+for nucleobase in dna:
+    if nucleobase == 'A':
         a_count += 1
-    elif basepair == 'C':
+    elif nucleobase == 'C':
         c_count += 1
-    elif basepair == 'G':
+    elif nucleobase == 'G':
         g_count += 1
-    elif basepair == 'T':
+    elif nucleobase == 'T':
         t_count += 1
 
 output_file.write("DNA: " + dna + "\nA: " + str(a_count) + "\nC: " + str(c_count) + "\nG: " + str(g_count) + "\nT: " + str(t_count))

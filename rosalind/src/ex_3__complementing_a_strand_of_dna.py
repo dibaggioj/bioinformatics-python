@@ -15,14 +15,14 @@ output_file = open(argv[2], 'w+')
 dna = input_file.read()
 reverse_complement = ""
 
-for basepair in dna[::-1]:
-    if basepair == 'A':
+for nucleobase in dna[::-1]:
+    if nucleobase == 'A':
         reverse_complement += 'T'
-    elif basepair == 'T':
+    elif nucleobase == 'T':
         reverse_complement += 'A'
-    elif basepair == 'G':
+    elif nucleobase == 'G':
         reverse_complement += 'C'
-    elif basepair == 'C':
+    elif nucleobase == 'C':
         reverse_complement += 'G'
 
 output_file.write(reverse_complement)

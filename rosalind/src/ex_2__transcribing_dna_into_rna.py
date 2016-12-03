@@ -15,11 +15,11 @@ output_file = open(argv[2], 'w+')
 dna = input_file.read()
 rna = ""
 
-for basepair in dna:
-    if basepair == 'T':
+for nucleobase in dna:
+    if nucleobase == 'T':
         rna += "U"
     else:
-        rna += basepair
+        rna += nucleobase
 
 # rna = dna.replace("T", "U")
 

@@ -22,3 +22,5 @@ dna_sequence = Seq(dna, IUPAC.unambiguous_dna)
 reverse_complement = dna_sequence.reverse_complement()
 
 output_file.write(str(reverse_complement))
+output_file.close()
+input_file.close()

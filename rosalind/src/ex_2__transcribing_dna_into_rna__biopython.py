@@ -21,3 +21,5 @@ dna_sequence = Seq(dna, IUPAC.unambiguous_dna)
 rna = dna_sequence.transcribe()
 
 output_file.write(str(rna))
+output_file.close()
+input_file.close()

@@ -31,3 +31,5 @@ for basepair in dna:
         t_count += 1
 
 output_file.write("DNA: " + dna + "\nA: " + str(a_count) + "\nC: " + str(c_count) + "\nG: " + str(g_count) + "\nT: " + str(t_count))
+output_file.close()
+input_file.close()

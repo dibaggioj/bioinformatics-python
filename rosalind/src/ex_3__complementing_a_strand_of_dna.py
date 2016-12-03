@@ -26,3 +26,5 @@ for basepair in dna[::-1]:
         reverse_complement += 'G'
 
 output_file.write(reverse_complement)
+output_file.close()
+input_file.close()

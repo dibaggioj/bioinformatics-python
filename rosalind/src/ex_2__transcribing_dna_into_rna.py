@@ -24,3 +24,5 @@ for basepair in dna:
 # rna = dna.replace("T", "U")
 
 output_file.write(rna)
+output_file.close()
+input_file.close()

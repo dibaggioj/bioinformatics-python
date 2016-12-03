@@ -92,7 +92,7 @@ def calc_rabbit_pairs_closed_form(month_n, multiplier):
     """
     alpha = Decimal(calc_quad_root(1, multiplier, True))
     beta = Decimal(calc_quad_root(1, multiplier, False))
-    answer = (alpha ** month_n - beta ** month_n) / (alpha - beta)
+    answer = (pow(alpha, month_n) - pow(beta,  month_n)) / (alpha - beta)
     return answer.to_integral_value()
 
 
@@ -124,8 +124,8 @@ def calc_quad_root(a, b, plus):
     quad_b = - a
     quad_c = - b
     if plus:
-        return (-quad_b + sqrt(quad_b ** 2 - 4 * quad_a * quad_c)) / (2 * quad_a)
-    return (-quad_b - sqrt(quad_b ** 2 - 4 * quad_a * quad_c)) / (2 * quad_a)
+        return (-quad_b + sqrt(pow(quad_b, 2) - 4 * quad_a * quad_c)) / (2 * quad_a)
+    return (-quad_b - sqrt(pow(quad_b, 2) - 4 * quad_a * quad_c)) / (2 * quad_a)
 
 
 time_start = time.time()
@@ -139,3 +139,5 @@ print "{} rabbit pairs after {} months with {} pairs per litter. Calculated in {
     rabbit_pair_count, n, k, time_elapsed)
 
 output_file.write(str(rabbit_pair_count))
+output_file.close()
+input_file.close()

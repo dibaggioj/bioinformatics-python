@@ -20,6 +20,8 @@ data_set = []
 
 def calc_gc_content(strand):
     strand = strand.strip()
+    if len(strand) == 0:
+        raise ValueError("Strand cannot be empty")
     gc_count = strand.count("G") + strand.count("C")
     gc_percent = DECIMAL_100 * Decimal(gc_count) / Decimal(len(strand))
     return gc_percent.quantize(Decimal('0.000001'), rounding=ROUND_UP)
@@ -36,14 +38,20 @@ for line in fileinput.input(argv[1]):
         data["strand"] += line.replace('\n', '')
 
 for data in data_set:
-    data["gc"] = calc_gc_content(data["strand"])
-    if strand_highest_gc is None or "gc" not in strand_highest_gc:
-        strand_highest_gc = data
-    elif "gc" in data and "gc" in strand_highest_gc and data["gc"] > strand_highest_gc["gc"]:
-        strand_highest_gc = data
+    try:
+        data["gc"] = calc_gc_content(data["strand"])
+        if strand_highest_gc is None or "gc" not in strand_highest_gc:
+            strand_highest_gc = data
+        elif "gc" in data and "gc" in strand_highest_gc and data["gc"] > strand_highest_gc["gc"]:
+            strand_highest_gc = data
+    except ValueError:
+        print "Unable to calculate GC content of strand " + data["id"]
+
 
 print strand_highest_gc
 
-output_file.write(strand_highest_gc["id"] + '\n')
-output_file.write(strand_highest_gc["gc"].to_eng_string())
+if strand_highest_gc is not None:
+    output_file.write(strand_highest_gc["id"] + '\n')
+    output_file.write(strand_highest_gc["gc"].to_eng_string())
+
 output_file.close()

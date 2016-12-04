@@ -1,8 +1,9 @@
 #!/usr/bin/env
 # encoding: utf-8
 """
-Created by John DiBaggio on 2016-11-30
+Created by John DiBaggio on 2016-12-02
 """
+__author__ = 'johndibaggio'
 
 import sys
 import fileinput

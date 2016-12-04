@@ -2,8 +2,9 @@
 # encoding: utf-8
 """
 Created by John DiBaggio on 2016-11-30
-Copyright (c) 2016 Inworks. All rights reserved.
+Copyright (c) 2016 John DiBaggio. All rights reserved.
 """
+__author__ = 'johndibaggio'
 
 import sys
 import os

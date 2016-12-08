@@ -28,7 +28,7 @@ rna = input_file.read()
 
 # ~0.54 seconds / 500 times
 def translate_rna_into_protein_1(rna_seq):
-    codons = [rna[i:i+CODON_LENGTH] for i in xrange(0, len(rna), CODON_LENGTH)]
+    codons = [rna_seq[i:i+CODON_LENGTH] for i in xrange(0, len(rna_seq), CODON_LENGTH)]
     protein_seq = ""
 
     for codon in codons:

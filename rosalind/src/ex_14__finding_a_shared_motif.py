@@ -69,10 +69,11 @@ def get_longest_common_substring(contained_kmers=['']):
             if strands_contain_substring(longer_kmer):
                 contained_longer_kmers.append(longer_kmer)
 
-    if len(contained_longer_kmers) > 0:     # Try to motif of larger k
+    if len(contained_longer_kmers) > 0:     # Try to find a motif of larger k
         return get_longest_common_substring(contained_longer_kmers)
     else:                                   # No motif of larger k found, so return the previous longest
         if len(contained_kmers) > 0:
+            print(contained_kmers)
             return contained_kmers[0]
         print("No shared motif found!")
         return None

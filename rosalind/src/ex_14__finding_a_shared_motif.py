@@ -13,8 +13,6 @@ BASE_PAIR_SET = ['A', 'C', 'G', 'T']
 
 argv = list(sys.argv)
 strands_collection = []
-contained_kmers = ['']
-longest_kmer_found = False
 
 
 def init_strands_set():
@@ -52,24 +50,29 @@ def strands_contain_substring(substring):
     return True
 
 
-def get_longest_common_substring():
-    global contained_kmers
-    global longest_kmer_found
+def get_longest_common_substring(contained_kmers=['']):
+    """
+    Calls itself recursively to sequentially search for longer and longer shared motifs by taking previously longest
+    kmers known to be shared across all strands and concating each kmer with one of each base and search for those new
+    strings of length k+1. Updates the list of contained kmers with any longer kmers found until no longer kmers are
+    found. Returns the longest shared kmer or lexicographically first longest shared kmer (if there a multiple).
+    :rtype: basestring
+    :return: longest shared kmer or lexicographically first longest shared kmer (if there a multiple)
+    """
 
     contained_longer_kmers = []
 
     for kmer in contained_kmers:
         for base_pair in BASE_PAIR_SET:
             longer_kmer = kmer + base_pair
-            # print("Checking kmer: " + longer_kmer)
+            print("Checking kmer: " + longer_kmer)
             if strands_contain_substring(longer_kmer):
                 contained_longer_kmers.append(longer_kmer)
 
     if len(contained_longer_kmers) > 0:     # Try to motif of larger k
         contained_kmers = contained_longer_kmers
-        return get_longest_common_substring()
+        return get_longest_common_substring(contained_kmers)
     else:                                   # No motif of larger k found, so return the previous longest
-        longest_kmer_found = True
         if len(contained_kmers) > 0:
             return contained_kmers[0]
         print("No shared motif found!")

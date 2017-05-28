@@ -65,13 +65,12 @@ def get_longest_common_substring(contained_kmers=['']):
     for kmer in contained_kmers:
         for base_pair in BASE_PAIR_SET:
             longer_kmer = kmer + base_pair
-            print("Checking kmer: " + longer_kmer)
+            # print("Checking kmer: " + longer_kmer)
             if strands_contain_substring(longer_kmer):
                 contained_longer_kmers.append(longer_kmer)
 
     if len(contained_longer_kmers) > 0:     # Try to motif of larger k
-        contained_kmers = contained_longer_kmers
-        return get_longest_common_substring(contained_kmers)
+        return get_longest_common_substring(contained_longer_kmers)
     else:                                   # No motif of larger k found, so return the previous longest
         if len(contained_kmers) > 0:
             return contained_kmers[0]

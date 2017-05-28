@@ -48,3 +48,36 @@ print("All locations of t as a substring of s:\n" + locations)
 
 output_file.write(locations)
 output_file.close()
+
+"""
+s1,s2 = open('rosalind_subs.txt').read().split('\r\n')
+
+for i in range(len(s1)):
+    if s1[i:].startswith(s2):
+        print i+1,
+"""
+"""
+import re
+
+def find_substrings(t, s):
+    return [m.start() for m in re.finditer('(?=%s)' % s, t)]
+
+with open('rosalind4.txt') as f:
+    s, t = f.read().split()
+
+# diff. order since usually we search for string in text
+locs = find_substrings(s, t)
+print ' '.join(str(x+1) for x in locs)
+"""
+"""
+input_file = 'rosalind_SUBS.txt'
+
+with open(input_file) as file:
+    dna1 = file.readline().strip()
+    dna2 = file.readline().strip()
+i = dna1.find(dna2)
+while i != -1:
+    print i + 1,
+    i = dna1.find(dna2, i + 1)
+"""
+

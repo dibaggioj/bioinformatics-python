@@ -8,13 +8,13 @@ __author__ = 'johndibaggio'
 import sys
 import fileinput
 
-from lib.bio_util import BioUtil
 
-
-MAX_K = 100
+BASE_PAIR_SET = ['A', 'C', 'G', 'T']
 
 argv = list(sys.argv)
 strands_collection = []
+contained_kmers = ['']
+longest_kmer_found = False
 
 
 def init_strands_set():
@@ -52,36 +52,28 @@ def strands_contain_substring(substring):
     return True
 
 
-def strands_contain_a_kmer(k):
-    for index in range(0, 4 ** k - 1):
-        if strands_contain_substring(BioUtil.number_to_pattern(index, k)):
-            return True
-    return False
-
-
-def get_lexicographically_first_kmer(k):
-    for index in range(0, 4 ** k - 1):
-        pattern = BioUtil.number_to_pattern(index, k)
-        # print("Checking pattern: " + pattern)
-        if strands_contain_substring(pattern):
-            return pattern
-    return None
-
-
 def get_longest_common_substring():
-    substring = ""
-    found = True
-    k = 2
-    while found and k < MAX_K:
-        next_substring = get_lexicographically_first_kmer(k)
-        k += 1
-        if next_substring is not None:
-            substring = next_substring
-            print("Current longest motif: " + substring)
-        else:
-            found = False
+    global contained_kmers
+    global longest_kmer_found
 
-    return substring
+    contained_longer_kmers = []
+
+    for kmer in contained_kmers:
+        for base_pair in BASE_PAIR_SET:
+            longer_kmer = kmer + base_pair
+            # print("Checking kmer: " + longer_kmer)
+            if strands_contain_substring(longer_kmer):
+                contained_longer_kmers.append(longer_kmer)
+
+    if len(contained_longer_kmers) > 0:     # Try to motif of larger k
+        contained_kmers = contained_longer_kmers
+        return get_longest_common_substring()
+    else:                                   # No motif of larger k found, so return the previous longest
+        longest_kmer_found = True
+        if len(contained_kmers) > 0:
+            return contained_kmers[0]
+        print("No shared motif found!")
+        return None
 
 
 init_strands_set()

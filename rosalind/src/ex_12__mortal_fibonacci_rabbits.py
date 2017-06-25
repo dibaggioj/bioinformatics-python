@@ -2,13 +2,16 @@
 # encoding: utf-8
 """
 Created by John DiBaggio on 2017-06-22
+
+Prints a message like the following:
+417929742755482295 rabbit pairs after 86 months with 1 pairs produced per litter from rabbits of age 2+ months and
+rabbits dying after 18 months. Calculated in 0.010950088501 seconds
+
 """
 __author__ = 'johndibaggio'
 
 import sys
 import time
-from math import sqrt
-from decimal import Decimal
 
 argv = list(sys.argv)
 input_file = open(argv[1], 'r+')
@@ -24,7 +27,6 @@ memo = {}
 
 
 def calc_rabbit_pairs(month_n, months_death, multiplier=1):
-    rabbits_prev = [0] * months_death
     rabbits_next = calc_rabbit_pairs_linear_recurrence_dynamic(month_n, months_death, multiplier)
     total_rabbits = 0
     for rabbits_month_i in rabbits_next:

@@ -5,7 +5,7 @@ Created by John DiBaggio on 2017-06-22
 
 Prints a message like the following:
 417929742755482295 rabbit pairs after 86 months with 1 pairs produced per litter from rabbits of age 2+ months and
-rabbits dying after 18 months. Calculated in 0.010950088501 seconds
+rabbits dying after 18 months. Calculated in 0.000448942184448 seconds
 
 """
 __author__ = 'johndibaggio'
@@ -50,8 +50,6 @@ def calc_rabbit_pairs_linear_recurrence_dynamic(month_n, months_death, multiplie
     :return: array, numbers of pairs of rabbits of age 0 months, 1 month, ... n-1 months
     """
 
-    print('\nmonth ' + str(month_n) + ':')
-
     args = (month_n, multiplier)
     if args in memo:
         print('using data store')
@@ -62,28 +60,23 @@ def calc_rabbit_pairs_linear_recurrence_dynamic(month_n, months_death, multiplie
     # Compute value for new conditions
     if month_n == 1:    # new baby rabbit pair
         rabbits_current[0] = 1
-
-        print('current:')
-        print(rabbits_current)
-
+        # print('current:')
+        # print(rabbits_current)
         ans = rabbits_current
     # elif month_n == 2:  # new mature rabbit pair (will produce offspring in subsequent months)
     #     rabbits_current[1] = 1
     #     ans = rabbits_current
     else:
         rabbits_prev = calc_rabbit_pairs_linear_recurrence_dynamic(month_n-1, months_death, multiplier)
-        print('\nprevious:')
-        print(rabbits_prev)
-
+        # print('\nprevious:')
+        # print(rabbits_prev)
         rabbits_current[1] = rabbits_prev[0]
         rabbits_current[0] += multiplier * rabbits_prev[months_death - 1]   # produce offspring from oldest rabbits
         for i in range(1, months_death - 1):                                   # kill off oldest rabbits
             rabbits_current[i + 1] = rabbits_prev[i]                           # age the mature rabbits by 1 month
             rabbits_current[0] += multiplier * rabbits_current[i + 1]          # produce offspring from mature rabbits
-
-        print('current:')
-        print(rabbits_current)
-
+        # print('current:')
+        # print(rabbits_current)
         ans = rabbits_current
 
     memo[args] = ans  # Store the computed value for new conditions

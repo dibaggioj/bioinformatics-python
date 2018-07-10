@@ -65,7 +65,7 @@ def get_longest_common_substring(contained_kmers=['']):
     for kmer in contained_kmers:
         for base_pair in BASE_PAIR_SET:
             longer_kmer = kmer + base_pair
-            # print("Checking kmer: " + longer_kmer)
+            print("Checking kmer: " + longer_kmer)
             if strands_contain_substring(longer_kmer):
                 contained_longer_kmers.append(longer_kmer)
 
